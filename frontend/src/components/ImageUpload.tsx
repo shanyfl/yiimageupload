@@ -105,7 +105,7 @@ const ImageUpload: React.FC = () => {
             formData.append('image', file);
             formData.append('expirationTime', expirationTime);
 
-            const response = await fetch('/api/images/upload', {
+            const response = await fetch('/api/v1/images', {
                 method: 'POST',
                 body: formData,
             });
