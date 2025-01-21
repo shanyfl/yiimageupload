@@ -5,13 +5,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { UploadResponse } from '../ImageUpload/ImageUpload';
 
+const isProduction = import.meta.env.NODE_ENV === 'production';
+const APP_API_URL = isProduction ? import.meta.env.VITE_PROD_API_URL : import.meta.env.VITE_DEV_API_URL;
+const IMAGES_URL = isProduction ? import.meta.env.VITE_PROD_IMAGES_URL : import.meta.env.VITE_DEV_IMAGES_URL;
+
 interface ImageUploadConfirmationProps {
     uploadedImage: UploadResponse;
     onClose: () => void;
 }
 
-const ImageUploadConfirmation: React.FC<ImageUploadConfirmationProps> = ({ uploadedImage, onClose }) => {
-    const imageUrl = `http://localhost:5173/api/v1/images/${uploadedImage.id}`;
+const ImageUploadConfirmation = ({ uploadedImage, onClose }: ImageUploadConfirmationProps) => {
+    const imageUrl = `${APP_API_URL}${IMAGES_URL}${uploadedImage.id}`;
     const [copied, setCopied] = React.useState(false);
 
     const copyToClipboard = () => {

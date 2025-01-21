@@ -1,10 +1,14 @@
 // src/components/ImageViewer.tsx
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {QueryKey, useQuery, useQueryClient} from '@tanstack/react-query';
 import ImageItem from "../ImageItem/ImageItem.tsx";
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:4000'); // adjust URL as needed
+const isProduction = import.meta.env.NODE_ENV === 'production';
+const IMAGES_URL = isProduction ? import.meta.env.VITE_PROD_IMAGES_URL : import.meta.env.VITE_DEV_IMAGES_URL;
+const SOCKET_URL = isProduction ? import.meta.env.VITE_PROD_SERVER_URL : import.meta.env.VITE_DEV_SERVER_URL;
+
+const socket = io(SOCKET_URL); // adjust URL as needed
 
 interface ImageData {
     id: string;
@@ -12,20 +16,18 @@ interface ImageData {
     expiresAt: string;
 }
 
-// Define a function to fetch images from the backend
 const fetchImages = async (): Promise<ImageData[]> => {
-    const response = await fetch('/api/v1/images');
+    const response = await fetch(IMAGES_URL as string);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
     return response.json();
 };
 
-const ImageViewer: React.FC = () => {
+const ImageViewer = () => {
     const { data: images, error, isLoading, refetch } = useQuery<ImageData[], Error>({
         queryKey: ['images'],
         queryFn: fetchImages,
-        // Optionally enable polling:
         refetchInterval: 60 * 1000, // fetch every 5 seconds
     });
     const queryClient = useQueryClient();

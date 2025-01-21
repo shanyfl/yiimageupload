@@ -1,6 +1,10 @@
 // src/components/ImageItem.tsx
 import React from 'react';
 
+const isProduction = import.meta.env.NODE_ENV === 'production';
+const APP_API_URL = isProduction ? import.meta.env.VITE_PROD_API_URL : import.meta.env.VITE_DEV_API_URL;
+const IMAGES_URL = isProduction ? import.meta.env.VITE_PROD_IMAGES_URL : import.meta.env.VITE_DEV_IMAGES_URL;
+
 interface ImageData {
     id: string;
     url: string;
@@ -13,6 +17,7 @@ interface ImageItemProps {
 }
 
 const ImageItem: React.FC<ImageItemProps> = ({ img }) => {
+    const imageUrl = `${APP_API_URL}${IMAGES_URL}${img.id}`;
     const expirationDate = new Date(img.expiresAt);
     const [timeLeft, setTimeLeft] = React.useState<number>(
         expirationDate.getTime() - Date.now()
@@ -38,7 +43,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ img }) => {
 
     return (
         <div>
-            <img src={`http://localhost:5173/api/v1/images/${img.id}`} alt={`Uploaded ${img.id}`} style={{ maxWidth: '200px' }} />
+            <img src={imageUrl} alt={`Uploaded ${img.id}`} style={{ maxWidth: '200px' }} />
             <p>Expires At: {img.expiresAt}</p>
             <p>Time Left: {formatTimeLeft(timeLeft)}</p>
         </div>

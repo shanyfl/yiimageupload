@@ -9,7 +9,7 @@ export interface UploadResponse {
     expiresAt: string;
 }
 
-const ImageUpload: React.FC = () => {
+const ImageUpload = () => {
     const [file, setFile] = useState<File | null>(null);
     const [expirationTime, setExpirationTime] = useState<string>('');
     const [uploadResponse, setUploadResponse] = useState<UploadResponse | null>(null);
