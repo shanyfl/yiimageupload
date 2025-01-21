@@ -3,7 +3,7 @@ import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 import path from 'path';
 
-const DB_PATH = path.join(__dirname, 'database.sqlite');
+const DB_PATH = path.join(__dirname, 'db.sqlite');
 
 export interface ImageRecord {
     id: string;

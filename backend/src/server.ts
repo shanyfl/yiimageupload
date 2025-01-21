@@ -8,54 +8,55 @@ import cors from 'cors';
 import http from 'http';
 import { initializeDb, ImageRecord } from './db';  // import DB setup
 
-// Initialize Database
+// Initialize out db... else where will it be ??
 let db: any;
 (async () => {
   db = await initializeDb();
 })();
 
-
-// Create the uploads directory if it doesn't exist
+// Create the uploads dir if it doesn't exist already :)
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR);
 }
 
-// Configure Multer for single-file upload:
+// use multer middleware for multipart/form-data uploads
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _res, cb) => {
     cb(null, UPLOADS_DIR);
   },
   filename: (req, file, cb) => {
-    // store file with a nanoid-based unique name + original extension
+    // store file with an id based on unique name + original extension
     const ext = path.extname(file.originalname);
     cb(null, `${Date.now()}-${nanoid()}${ext}`);
   },
 });
+
 const upload = multer({ storage });
 
-// Initialize Express
+// Initialize Express app server
 const app = express();
-app.use(cors()); // optional, if you need CORS for local dev
+app.use(cors()); // add support for cors, else we won't get much further!
 app.use(express.json());
 const server = http.createServer(app);
+
+// we use socket.io for real-time updates
 const io = new SocketIOServer(server, {
     cors: {
         origin: '*',
     },
 });
 
-// Endpoint to fetch all non-expired images
-// GET /v1/images
 app.get('/api/v1/images', async (req: express.Request, res: express.Response) => {
   try {
     const now = Date.now();
-    // Query non-expired images from SQLite
+    // Query non-expired images
     const validImages: ImageRecord[] = await db.all(
         'SELECT * FROM images WHERE expirationTimestamp > ?',
         now
     );
 
+    // Return image metadata
     const imageData = validImages.map(img => ({
       id: img.id,
       url: `${req.protocol}://${req.get('host')}/api/v1/images/${img.id}`,
@@ -69,37 +70,29 @@ app.get('/api/v1/images', async (req: express.Request, res: express.Response) =>
   }
 });
 
-//-------------------------------------------------
-// POST /v1/images
-//-------------------------------------------------
-// 1) Accepts a single file (field name: "image")
-// 2) Accepts expirationTime (minutes) in the body or query
-// 3) Returns JSON with { imageID, url, message }
 app.post('/api/v1/images', upload.single('image'), async (req: express.Request, res: express.Response) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    // If an expirationTime was provided (in minutes), parse it:
+    // If an expirationTime was provided (in minutes) parse it as floats, since
+    // we want to use seconds for the timestamp and not only whole minutes
     const expirationTimeMinutes = req.body.expirationTime
       ? parseFloat(req.body.expirationTime)
-      : 60; // default to 60 minutes if not provided
+      : 60;
 
-    // Calculate expiration timestamp
+    // calculate the expiration
     const expirationTimestamp = Date.now() + expirationTimeMinutes * 60 * 1000;
 
-    // Generate a unique ID for the image
     const imageID = nanoid();
-
-    // Store metadata in our in-memory array
     const record: ImageRecord = {
       id: imageID,
       filePath: req.file.path,
       expirationTimestamp,
     };
 
-    // Insert metadata into SQLite
+    // Insert the image into the db
     await db.run(
         `INSERT INTO images (id, filePath, expirationTimestamp) VALUES (?, ?, ?)`,
         record.id,
@@ -119,12 +112,6 @@ app.post('/api/v1/images', upload.single('image'), async (req: express.Request, 
   }
 });
 
-//-------------------------------------------------
-// GET /v1/images/:imageID
-//-------------------------------------------------
-// 1) Find the matching record in our in-memory store
-// 2) Check if expired
-// 3) Return the file if valid, or 404 if not found/expired
 app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Response) => {
   try {
     const {imageID} = req.params;
@@ -137,7 +124,7 @@ app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Res
       return res.status(404).json({error: 'Image not found'});
     }
 
-    // Check if expired
+    // Check if image expired already
     if (Date.now() > record.expirationTimestamp) {
       // Optionally delete the file from local disk
       if (fs.existsSync(record.filePath)) {
@@ -150,7 +137,7 @@ app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Res
       return res.status(410).json({error: 'Image has expired'}); // or 404
     }
 
-    // If valid, serve the file
+    // it's valid, serve the file
     return res.sendFile(path.resolve(record.filePath));
   } catch (error) {
     console.error('Error fetching image:', error);
@@ -158,16 +145,18 @@ app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Res
   }
 });
 
-
-// Remove expired images periodically
-const checkAndRemoveExpiredImages = async () => {
+// check if images have expired and if so, remove them and notify the client app
+export const checkAndRemoveExpiredImages = async () => {
   try {
     const now = Date.now();
+
+    // get all expired images
     const expiredImages: ImageRecord[] = await db.all(
         'SELECT * FROM images WHERE expirationTimestamp < ?',
         now
     );
 
+    // remove the images from the upload dir
     for (const img of expiredImages) {
       console.log('Removing expired image:', img.id);
       if (fs.existsSync(img.filePath)) {
@@ -175,6 +164,7 @@ const checkAndRemoveExpiredImages = async () => {
           if (err) console.error('Error deleting file:', err);
         });
       }
+      // delete the image from db
       await db.run('DELETE FROM images WHERE id = ?', img.id);
       io.emit('imageRemoved', { id: img.id });
     }
@@ -183,7 +173,7 @@ const checkAndRemoveExpiredImages = async () => {
   }
 };
 
-// Check for expired images every minute (adjust as needed)
+// check every second - this is a native but doable approach
 setInterval(checkAndRemoveExpiredImages, 1000);
 
 // Start server
