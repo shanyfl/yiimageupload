@@ -39,6 +39,25 @@ const app = express();
 app.use(cors()); // optional, if you need CORS for local dev
 app.use(express.json());
 
+
+// Endpoint to fetch all non-expired images
+// GET /v1/images
+app.get('/api/v1/images', (req: express.Request, res: express.Response) => {
+  console.log(images);
+  // Filter out expired images
+  const validImages = images.filter(img => Date.now() < img.expirationTimestamp);
+
+  // Map valid images to a response format
+  const imageData = validImages.map(img => ({
+    id: img.id,
+    // Construct URL to fetch individual image
+    url: `${req.protocol}://${req.get('host')}/v1/images/${img.id}`,
+    expiresAt: new Date(img.expirationTimestamp).toISOString(),
+  }));
+
+  res.json(imageData);
+});
+
 //-------------------------------------------------
 // POST /v1/images
 //-------------------------------------------------
@@ -68,6 +87,7 @@ app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: e
       filePath: req.file.path,
       expirationTimestamp,
     };
+
     images.push(record);
 
     // Construct a URL for retrieving the image

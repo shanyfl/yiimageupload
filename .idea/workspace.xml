@@ -4,8 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="added backend init code.">
-      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="added gitignore for the backend.">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -54,6 +65,7 @@
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageUpload" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend" />
     </key>
   </component>
@@ -76,7 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1737441760176</updated>
       <workItem from="1737441761362" duration="2000000" />
-      <workItem from="1737443866062" duration="2166000" />
+      <workItem from="1737443866062" duration="4066000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -102,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737446054146</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added gitignore for the backend.">
+      <option name="closed" value="true" />
+      <created>1737446119576</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737446119576</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +132,7 @@
     <MESSAGE value="init" />
     <MESSAGE value="updated api url" />
     <MESSAGE value="added backend init code." />
-    <option name="LAST_COMMIT_MESSAGE" value="added backend init code." />
+    <MESSAGE value="added gitignore for the backend." />
+    <option name="LAST_COMMIT_MESSAGE" value="added gitignore for the backend." />
   </component>
 </project>

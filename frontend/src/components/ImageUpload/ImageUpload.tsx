@@ -1,5 +1,6 @@
 import React, { useState, DragEvent } from 'react';
 import './ImageUpload.scss';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface UploadResponse {
     message?: string;
@@ -13,6 +14,7 @@ const ImageUpload: React.FC = () => {
     const [uploadResponse, setUploadResponse] = useState<UploadResponse | null>(null);
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
 
     // State to track if we are currently dragging something over the drop area
     const [isDragActive, setIsDragActive] = useState<boolean>(false);
@@ -116,6 +118,9 @@ const ImageUpload: React.FC = () => {
 
             const data = (await response.json()) as UploadResponse;
             setUploadResponse(data);
+
+            // Invalidate and refetch the 'images' query after a successful upload
+            await queryClient.invalidateQueries(['images']);
         } catch (err: any) {
             console.error('Upload error:', err);
             setError(err.message || 'Error uploading image');
