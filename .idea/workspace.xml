@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="added gitignore for the backend.">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="added support for react query">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1737441760176</updated>
       <workItem from="1737441761362" duration="2000000" />
-      <workItem from="1737443866062" duration="4066000" />
+      <workItem from="1737443866062" duration="4890000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -122,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737446119576</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added support for react query">
+      <option name="closed" value="true" />
+      <created>1737448120820</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737448120820</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +137,7 @@
     <MESSAGE value="updated api url" />
     <MESSAGE value="added backend init code." />
     <MESSAGE value="added gitignore for the backend." />
-    <option name="LAST_COMMIT_MESSAGE" value="added gitignore for the backend." />
+    <MESSAGE value="added support for react query" />
+    <option name="LAST_COMMIT_MESSAGE" value="added support for react query" />
   </component>
 </project>

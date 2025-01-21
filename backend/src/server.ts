@@ -1,10 +1,11 @@
 import express from 'express';
-
+import { Server as SocketIOServer } from 'socket.io';
 import multer from 'multer';
 import { nanoid } from 'nanoid';
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
+import http from 'http';
 
 // In-memory store for image metadata
 interface ImageRecord {
@@ -38,7 +39,12 @@ const upload = multer({ storage });
 const app = express();
 app.use(cors()); // optional, if you need CORS for local dev
 app.use(express.json());
-
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+    cors: {
+        origin: '*',
+    },
+});
 
 // Endpoint to fetch all non-expired images
 // GET /v1/images
@@ -140,9 +146,46 @@ app.get('/api/v1/images/:imageID', (req: express.Request, res: express.Response)
   return res.sendFile(path.resolve(record.filePath));
 });
 
+
+// Assume images is your in-memory image store and fs is imported
+const checkAndRemoveExpiredImages = () => {
+  const now = Date.now();
+  for (let i = images.length - 1; i >= 0; i--) {
+    if (images[i].expirationTimestamp < now) {
+      const removedImageId = images[i].id;
+      console.log('Removing expired image:', removedImageId);
+      // Remove file from disk if needed
+      const filePath = images[i].filePath;
+      if (fs.existsSync(filePath)) {
+        fs.unlink(filePath, (err) => {
+          if (err) console.error('Error deleting file:', err);
+        });
+      }
+      // Remove from in-memory store
+      images.splice(i, 1);
+
+      // Emit a websocket event here to notify clients (see below)
+      io.emit('imageRemoved', { id: removedImageId });
+    }
+  }
+};
+
+// Check for expired images every minute (adjust as needed)
+setInterval(checkAndRemoveExpiredImages, 1000);
+
 // Start server
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+// Listen for client connections
+io.on('connection', (socket) => {
+  console.log('New client connected:', socket.id);
+
+  // Optionally handle disconnect
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
 });
 
