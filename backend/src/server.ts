@@ -96,14 +96,10 @@ app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: e
 
     images.push(record);
 
-    // Construct a URL for retrieving the image
-    // e.g., http://localhost:4000/v1/images/xyz123
-    const imageUrl = `${req.protocol}://${req.get('host')}/api/v1/images/${imageID}`;
-
     return res.status(201).json({
       message: 'Image uploaded successfully',
       imageID,
-      url: imageUrl,
+      id: imageID,
       expiresAt: new Date(expirationTimestamp).toISOString(),
     });
   } catch (error) {

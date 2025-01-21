@@ -1,11 +1,12 @@
 import React, { useState, DragEvent } from 'react';
 import './ImageUpload.scss';
 import { useQueryClient } from '@tanstack/react-query';
+import ImageUploadConfirmation from "../ImageUploadConfirmation/ImageUploadConfirmation.tsx";
 
-interface UploadResponse {
-    message?: string;
-    link?: string;
-    expiresAt?: string;
+export interface UploadResponse {
+    message: string;
+    id: string;
+    expiresAt: string;
 }
 
 const ImageUpload: React.FC = () => {
@@ -29,6 +30,13 @@ const ImageUpload: React.FC = () => {
             setUploadResponse(null);
         }
     };
+
+    const resetAll = () => {
+        setFile(null);
+        setExpirationTime('');
+        setUploadResponse(null);
+        setError(null);
+    }
 
     /**
      * Handle drag-over event (fired continuously when you drag something over the drop zone)
@@ -150,6 +158,7 @@ const ImageUpload: React.FC = () => {
                 )}
             </div>
 
+
             {/* Traditional file input */}
             <div style={{ marginBottom: '1rem' }}>
                 <label>
@@ -188,19 +197,11 @@ const ImageUpload: React.FC = () => {
                 </div>
             )}
 
-            {/* Upload response */}
             {uploadResponse && (
-                <div style={{ marginTop: '1rem' }}>
-                    <p>{uploadResponse.message}</p>
-                    {uploadResponse.link && (
-                        <p>
-                            Image Link (expires at {uploadResponse.expiresAt}): <br />
-                            <a href={uploadResponse.link} target="_blank" rel="noopener noreferrer">
-                                {uploadResponse.link}
-                            </a>
-                        </p>
-                    )}
-                </div>
+                <ImageUploadConfirmation
+                    uploadedImage={uploadResponse}
+                    onClose={() => resetAll()}
+                />
             )}
         </div>
     );
