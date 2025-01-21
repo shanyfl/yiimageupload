@@ -9,4 +9,10 @@
     border-radius: 10px;
     color: black;
     font-weight: bold;
+
+    & > img {
+        max-width: 200px;
+        max-height: 100%;
+        border-radius: 10px;
+    }
 }

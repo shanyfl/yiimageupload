@@ -6,15 +6,14 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import http from 'http';
+import { initializeDb, ImageRecord } from './db';  // import DB setup
 
-// In-memory store for image metadata
-interface ImageRecord {
-  id: string;
-  filePath: string;       // local file system path (or S3 URL in production)
-  expirationTimestamp: number; // e.g., Date.now() + X * 60 * 1000
-}
+// Initialize Database
+let db: any;
+(async () => {
+  db = await initializeDb();
+})();
 
-const images: ImageRecord[] = [];
 
 // Create the uploads directory if it doesn't exist
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
@@ -48,20 +47,26 @@ const io = new SocketIOServer(server, {
 
 // Endpoint to fetch all non-expired images
 // GET /v1/images
-app.get('/api/v1/images', (req: express.Request, res: express.Response) => {
-  console.log(images);
-  // Filter out expired images
-  const validImages = images.filter(img => Date.now() < img.expirationTimestamp);
+app.get('/api/v1/images', async (req: express.Request, res: express.Response) => {
+  try {
+    const now = Date.now();
+    // Query non-expired images from SQLite
+    const validImages: ImageRecord[] = await db.all(
+        'SELECT * FROM images WHERE expirationTimestamp > ?',
+        now
+    );
 
-  // Map valid images to a response format
-  const imageData = validImages.map(img => ({
-    id: img.id,
-    // Construct URL to fetch individual image
-    url: `${req.protocol}://${req.get('host')}/v1/images/${img.id}`,
-    expiresAt: new Date(img.expirationTimestamp).toISOString(),
-  }));
+    const imageData = validImages.map(img => ({
+      id: img.id,
+      url: `${req.protocol}://${req.get('host')}/api/v1/images/${img.id}`,
+      expiresAt: new Date(img.expirationTimestamp).toISOString(),
+    }));
 
-  res.json(imageData);
+    res.json(imageData);
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 //-------------------------------------------------
@@ -70,7 +75,7 @@ app.get('/api/v1/images', (req: express.Request, res: express.Response) => {
 // 1) Accepts a single file (field name: "image")
 // 2) Accepts expirationTime (minutes) in the body or query
 // 3) Returns JSON with { imageID, url, message }
-app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: express.Response) => {
+app.post('/api/v1/images', upload.single('image'), async (req: express.Request, res: express.Response) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -94,7 +99,13 @@ app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: e
       expirationTimestamp,
     };
 
-    images.push(record);
+    // Insert metadata into SQLite
+    await db.run(
+        `INSERT INTO images (id, filePath, expirationTimestamp) VALUES (?, ?, ?)`,
+        record.id,
+        record.filePath,
+        record.expirationTimestamp
+    );
 
     return res.status(201).json({
       message: 'Image uploaded successfully',
@@ -114,55 +125,61 @@ app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: e
 // 1) Find the matching record in our in-memory store
 // 2) Check if expired
 // 3) Return the file if valid, or 404 if not found/expired
-app.get('/api/v1/images/:imageID', (req: express.Request, res: express.Response) => {
-  const { imageID } = req.params;
-  const record = images.find((img) => img.id === imageID);
+app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Response) => {
+  try {
+    const {imageID} = req.params;
+    const record: ImageRecord = await db.get(
+        'SELECT * FROM images WHERE id = ?',
+        imageID
+    );
 
-  if (!record) {
-    return res.status(404).json({ error: 'Image not found' });
-  }
-
-  // Check if expired
-  if (Date.now() > record.expirationTimestamp) {
-    // Optionally delete the file from local disk
-    if (fs.existsSync(record.filePath)) {
-      fs.unlinkSync(record.filePath);
+    if (!record) {
+      return res.status(404).json({error: 'Image not found'});
     }
 
-    // Remove from in-memory store
-    const index = images.findIndex((img) => img.id === imageID);
-    if (index !== -1) {
-      images.splice(index, 1);
+    // Check if expired
+    if (Date.now() > record.expirationTimestamp) {
+      // Optionally delete the file from local disk
+      if (fs.existsSync(record.filePath)) {
+        fs.unlinkSync(record.filePath);
+      }
+
+      // Remove record from SQLite
+      await db.run('DELETE FROM images WHERE id = ?', imageID);
+
+      return res.status(410).json({error: 'Image has expired'}); // or 404
     }
 
-    return res.status(410).json({ error: 'Image has expired' }); // or 404
+    // If valid, serve the file
+    return res.sendFile(path.resolve(record.filePath));
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
-
-  // If valid, serve the file
-  return res.sendFile(path.resolve(record.filePath));
 });
 
 
-// Assume images is your in-memory image store and fs is imported
-const checkAndRemoveExpiredImages = () => {
-  const now = Date.now();
-  for (let i = images.length - 1; i >= 0; i--) {
-    if (images[i].expirationTimestamp < now) {
-      const removedImageId = images[i].id;
-      console.log('Removing expired image:', removedImageId);
-      // Remove file from disk if needed
-      const filePath = images[i].filePath;
-      if (fs.existsSync(filePath)) {
-        fs.unlink(filePath, (err) => {
+// Remove expired images periodically
+const checkAndRemoveExpiredImages = async () => {
+  try {
+    const now = Date.now();
+    const expiredImages: ImageRecord[] = await db.all(
+        'SELECT * FROM images WHERE expirationTimestamp < ?',
+        now
+    );
+
+    for (const img of expiredImages) {
+      console.log('Removing expired image:', img.id);
+      if (fs.existsSync(img.filePath)) {
+        fs.unlink(img.filePath, err => {
           if (err) console.error('Error deleting file:', err);
         });
       }
-      // Remove from in-memory store
-      images.splice(i, 1);
-
-      // Emit a websocket event here to notify clients (see below)
-      io.emit('imageRemoved', { id: removedImageId });
+      await db.run('DELETE FROM images WHERE id = ?', img.id);
+      io.emit('imageRemoved', { id: img.id });
     }
+  } catch (error) {
+    console.error('Error during cleanup:', error);
   }
 };
 

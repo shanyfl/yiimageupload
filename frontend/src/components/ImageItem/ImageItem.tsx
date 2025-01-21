@@ -44,7 +44,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ img }) => {
 
     return (
         <div className={'image-item'}>
-            <img src={imageUrl} alt={`Uploaded ${img.id}`} style={{ maxWidth: '200px' }} />
+            <img src={imageUrl} alt={`Uploaded ${img.id}`}/>
             <p>Expires At: {img.expiresAt}</p>
             <p>Time Left: {formatTimeLeft(timeLeft)}</p>
         </div>

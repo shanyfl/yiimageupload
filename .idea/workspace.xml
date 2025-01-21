@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="add support for env files &amp; vite in config">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.scss" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="update design and ui">
+      <change afterPath="$PROJECT_DIR$/backend/src/db.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUploadConfirmation/ImageUploadConfirmation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUploadConfirmation/ImageUploadConfirmation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +31,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2rvZxzCGFDecymFQx6PFRT5xdof" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
@@ -102,7 +101,7 @@
       <updated>1737441760176</updated>
       <workItem from="1737441761362" duration="2000000" />
       <workItem from="1737443866062" duration="8954000" />
-      <workItem from="1737456242473" duration="7021000" />
+      <workItem from="1737456242473" duration="7728000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -176,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737459819303</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="update design and ui">
+      <option name="closed" value="true" />
+      <created>1737489706564</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737489706564</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +199,7 @@
     <MESSAGE value="add image confirmation dialog" />
     <MESSAGE value="removed unused code and fixed typescript issues." />
     <MESSAGE value="add support for env files &amp; vite in config" />
-    <option name="LAST_COMMIT_MESSAGE" value="add support for env files &amp; vite in config" />
+    <MESSAGE value="update design and ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="update design and ui" />
   </component>
 </project>
