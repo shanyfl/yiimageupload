@@ -1,5 +1,5 @@
-// src/components/ImageViewer.tsx
 import {useEffect} from 'react';
+import './ImageViewer.scss';
 import {QueryKey, useQuery, useQueryClient} from '@tanstack/react-query';
 import ImageItem from "../ImageItem/ImageItem.tsx";
 import { io } from 'socket.io-client';
@@ -7,7 +7,6 @@ import { io } from 'socket.io-client';
 const isProduction = import.meta.env.NODE_ENV === 'production';
 const IMAGES_URL = isProduction ? import.meta.env.VITE_PROD_IMAGES_URL : import.meta.env.VITE_DEV_IMAGES_URL;
 const SOCKET_URL = isProduction ? import.meta.env.VITE_PROD_SERVER_URL : import.meta.env.VITE_DEV_SERVER_URL;
-
 const socket = io(SOCKET_URL); // adjust URL as needed
 
 interface ImageData {
@@ -25,7 +24,7 @@ const fetchImages = async (): Promise<ImageData[]> => {
 };
 
 const ImageViewer = () => {
-    const { data: images, error, isLoading, refetch } = useQuery<ImageData[], Error>({
+    const { data: images, error, isLoading } = useQuery<ImageData[], Error>({
         queryKey: ['images'],
         queryFn: fetchImages,
         refetchInterval: 60 * 1000, // fetch every 5 seconds
@@ -61,17 +60,24 @@ const ImageViewer = () => {
         return <div>Error loading images: {error.message}</div>;
     }
 
+    const renderImages = () => {
+       if (images && images.length > 0) {
+           return (
+               <div className={'image-viewer'}>
+                   <h2>Uploaded Images</h2>
+                   {images.map((img) => (
+                       <ImageItem key={img.id} img={img} />
+                   ))}
+               </div>
+           );
+       }
+
+       return <p>No images found.</p>;
+    }
+
     return (
-        <div>
-            <h2>Uploaded Images</h2>
-            <button onClick={() => refetch()}>Refresh</button>
-            {images && images.length > 0 ? (
-                images.map((img) => (
-                    <ImageItem key={img.id} img={img} />
-                ))
-            ) : (
-                <p>No images found.</p>
-            )}
+        <div className={'image-viewer'}>
+            {renderImages()}
         </div>
     );
 };

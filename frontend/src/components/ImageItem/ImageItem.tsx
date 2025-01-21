@@ -1,5 +1,6 @@
 // src/components/ImageItem.tsx
 import React from 'react';
+import './ImageItem.scss';
 
 const isProduction = import.meta.env.NODE_ENV === 'production';
 const APP_API_URL = isProduction ? import.meta.env.VITE_PROD_API_URL : import.meta.env.VITE_DEV_API_URL;
@@ -42,7 +43,7 @@ const ImageItem: React.FC<ImageItemProps> = ({ img }) => {
     };
 
     return (
-        <div>
+        <div className={'image-item'}>
             <img src={imageUrl} alt={`Uploaded ${img.id}`} style={{ maxWidth: '200px' }} />
             <p>Expires At: {img.expiresAt}</p>
             <p>Time Left: {formatTimeLeft(timeLeft)}</p>

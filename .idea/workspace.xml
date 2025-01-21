@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="removed unused code and fixed typescript issues.">
-      <change afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/.env.prod" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="add support for env files &amp; vite in config">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageItem/ImageItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUploadConfirmation/ImageUploadConfirmation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUploadConfirmation/ImageUploadConfirmation.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +45,11 @@
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Node.js.Unnamed.executor": "Debug",
+    "Node.js.server.ts.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/shany/Projects/homework/yimageuploader/frontend",
+    "last_opened_file_path": "C:/Users/shany/Projects/homework/yimageuploader/frontend/src/components/ImageViewer",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,6 +62,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageViewer" />
+      <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageItem" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\backend" />
     </key>
@@ -67,6 +71,16 @@
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageUpload" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="server.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="server.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/backend/src">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.server.ts" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
@@ -88,7 +102,7 @@
       <updated>1737441760176</updated>
       <workItem from="1737441761362" duration="2000000" />
       <workItem from="1737443866062" duration="8954000" />
-      <workItem from="1737456242473" duration="3437000" />
+      <workItem from="1737456242473" duration="7021000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -154,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737456302972</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add support for env files &amp; vite in config">
+      <option name="closed" value="true" />
+      <created>1737459819303</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737459819303</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +191,7 @@
     <MESSAGE value="implemented websockets to notify frontend whenever an image has been removed by the server. frontend pulling is every 1 min." />
     <MESSAGE value="add image confirmation dialog" />
     <MESSAGE value="removed unused code and fixed typescript issues." />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unused code and fixed typescript issues." />
+    <MESSAGE value="add support for env files &amp; vite in config" />
+    <option name="LAST_COMMIT_MESSAGE" value="add support for env files &amp; vite in config" />
   </component>
 </project>

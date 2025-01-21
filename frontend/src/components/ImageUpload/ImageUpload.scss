@@ -1,6 +1,5 @@
 .image-upload {
     padding: 1rem;
-    border: 1px solid #ccc;
 
     h2 {
         margin-top: 0;
@@ -16,7 +15,10 @@
         margin-bottom: 1rem;
 
         &.drag-active {
-            background-color: #fafafa;
+            background: #d9c2ff;
+            & > p {
+                color: #333;
+            }
         }
 
         & > p{

@@ -1,4 +1,4 @@
-import React, {useState, DragEvent} from 'react';
+import React, {useState, DragEvent, useRef} from 'react';
 import './ImageUpload.scss';
 import {QueryKey, useQueryClient} from '@tanstack/react-query';
 import ImageUploadConfirmation from "../ImageUploadConfirmation/ImageUploadConfirmation.tsx";
@@ -11,14 +11,31 @@ export interface UploadResponse {
 
 const ImageUpload = () => {
     const [file, setFile] = useState<File | null>(null);
-    const [expirationTime, setExpirationTime] = useState<string>('');
+    const [expirationTime, setExpirationTime] = useState<string>('0.5');
     const [uploadResponse, setUploadResponse] = useState<UploadResponse | null>(null);
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const queryClient = useQueryClient();
 
     // State to track if we are currently dragging something over the drop area
     const [isDragActive, setIsDragActive] = useState<boolean>(false);
+
+    const expirationOptions = [
+        { label: '30 seconds', value: '0.5' },
+        { label: '1 minute', value: '1' },
+        { label: '5 minutes', value: '5' },
+        { label: '15 minutes', value: '15' },
+        { label: '30 minutes', value: '30' },
+        { label: '1 hour', value: '60' },
+        { label: '6 hours', value: '360' },
+        { label: '12 hours', value: '720' },
+        { label: '1 day', value: '1440' },
+        { label: '3 days', value: '4320' },
+        { label: '1 week', value: '10080' },
+        { label: '1 month', value: '43200' },
+        { label: '6 months', value: '259200' },
+    ];
 
     /**
      * Handle file changes from the file input
@@ -33,7 +50,10 @@ const ImageUpload = () => {
 
     const resetAll = () => {
         setFile(null);
-        setExpirationTime('');
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ""; // clear the file input
+        }
+        setExpirationTime('0.5');
         setUploadResponse(null);
         setError(null);
     }
@@ -148,8 +168,6 @@ const ImageUpload = () => {
 
     return (
         <div className="image-upload">
-            <h2>Upload a Temporary Image</h2>
-
             {/* Drag-and-drop area */}
             <div
                 className={`drop-zone ${isDragActive ? 'drag-active' : ''}`}
@@ -174,6 +192,7 @@ const ImageUpload = () => {
                     <strong>Select image:</strong>
                     <input
                         type="file"
+                        ref={fileInputRef}
                         accept="image/*"
                         onChange={handleFileChange}
                         style={{ marginLeft: '0.5rem' }}
@@ -182,17 +201,23 @@ const ImageUpload = () => {
             </div>
 
             {/* Expiration time input */}
-            <div style={{ marginBottom: '1rem' }}>
+            <div style={{marginBottom: '1rem'}}>
                 <label>
-                    <strong>Expiration (minutes):</strong>
-                    <input
-                        type="number"
+                    <strong>Expiration:</strong>
+                    <select
                         value={expirationTime}
                         onChange={(e) => setExpirationTime(e.target.value)}
-                        style={{ marginLeft: '0.5rem' }}
-                    />
+                        style={{marginLeft: '0.5rem'}}
+                    >
+                        {expirationOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
                 </label>
             </div>
+
 
             {/* Upload button */}
             <button onClick={handleUpload} disabled={isUploading}>
@@ -201,7 +226,7 @@ const ImageUpload = () => {
 
             {/* Error message */}
             {error && (
-                <div style={{ marginTop: '1rem', color: 'red' }}>
+                <div style={{marginTop: '1rem', color: 'red'}}>
                     <strong>Error:</strong> {error}
                 </div>
             )}

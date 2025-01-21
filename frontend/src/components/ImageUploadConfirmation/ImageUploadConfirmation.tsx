@@ -21,7 +21,10 @@ const ImageUploadConfirmation = ({ uploadedImage, onClose }: ImageUploadConfirma
     const copyToClipboard = () => {
         navigator.clipboard.writeText(imageUrl).then(() => {
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Revert to copy icon after 2 seconds
+            setTimeout(() => {
+                setCopied(false);
+                onClose?.();
+            }, 2000); // Revert to copy icon after 2 seconds
         });
     };
 

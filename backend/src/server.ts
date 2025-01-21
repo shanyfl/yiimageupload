@@ -78,7 +78,7 @@ app.post('/api/v1/images', upload.single('image'), (req: express.Request, res: e
 
     // If an expirationTime was provided (in minutes), parse it:
     const expirationTimeMinutes = req.body.expirationTime
-      ? parseInt(req.body.expirationTime, 10)
+      ? parseFloat(req.body.expirationTime)
       : 60; // default to 60 minutes if not provided
 
     // Calculate expiration timestamp
