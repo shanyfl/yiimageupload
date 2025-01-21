@@ -37,11 +37,11 @@ const ImageItem: React.FC<ImageItemProps> = ({ img }) => {
     };
 
     return (
-        <li>
+        <div>
             <img src={`http://localhost:5173/api/v1/images/${img.id}`} alt={`Uploaded ${img.id}`} style={{ maxWidth: '200px' }} />
             <p>Expires At: {img.expiresAt}</p>
             <p>Time Left: {formatTimeLeft(timeLeft)}</p>
-        </li>
+        </div>
     );
 };
 

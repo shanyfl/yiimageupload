@@ -1,6 +1,6 @@
-import React, { useState, DragEvent } from 'react';
+import React, {useState, DragEvent} from 'react';
 import './ImageUpload.scss';
-import { useQueryClient } from '@tanstack/react-query';
+import {QueryKey, useQueryClient} from '@tanstack/react-query';
 import ImageUploadConfirmation from "../ImageUploadConfirmation/ImageUploadConfirmation.tsx";
 
 export interface UploadResponse {
@@ -127,11 +127,20 @@ const ImageUpload: React.FC = () => {
             const data = (await response.json()) as UploadResponse;
             setUploadResponse(data);
 
-            // Invalidate and refetch the 'images' query after a successful upload
-            await queryClient.invalidateQueries(['images']);
-        } catch (err: any) {
-            console.error('Upload error:', err);
-            setError(err.message || 'Error uploading image');
+            // Invalidate and re-fetch the 'images' query after a successful upload
+            await queryClient.invalidateQueries({
+                queryKey: ['images'] as QueryKey,
+            });
+
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.error('Upload error:', err.message);
+                setError(err.message);
+            }
+            else {
+                console.error('Upload error:', err);
+                setError('An unknown error occurred during upload');
+            }
         } finally {
             setIsUploading(false);
         }

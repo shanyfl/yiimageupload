@@ -1,6 +1,6 @@
 // src/components/ImageViewer.tsx
 import React, {useEffect} from 'react';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {QueryKey, useQuery, useQueryClient} from '@tanstack/react-query';
 import ImageItem from "../ImageItem/ImageItem.tsx";
 import { io } from 'socket.io-client';
 
@@ -31,16 +31,23 @@ const ImageViewer: React.FC = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        // Listen for image removal events
-        socket.on('imageRemoved', (data: { id: string }) => {
+        const handleImageRemoved = async (data: { id: string }) => {
             console.log('Image removed:', data.id);
-            // Invalidate images query to re-fetch updated list
-            queryClient.invalidateQueries(['images']);
-        });
+            try {
+                await queryClient.invalidateQueries({
+                    queryKey: ['images'] as QueryKey,
+                });
+            } catch (error) {
+                console.error('Failed to invalidate images query:', error);
+            }
+        };
+
+        // Listen for image removal events
+        socket.on('imageRemoved',handleImageRemoved);
 
         // Cleanup on unmount
         return () => {
-            socket.off('imageRemoved');
+            socket.off('imageRemoved', handleImageRemoved);
         };
     }, [queryClient]);
 
@@ -57,13 +64,9 @@ const ImageViewer: React.FC = () => {
             <h2>Uploaded Images</h2>
             <button onClick={() => refetch()}>Refresh</button>
             {images && images.length > 0 ? (
-                <ul>
-                    {images.map((img) => (
-                        <li key={img.id}>
-                            <ImageItem key={img.id} img={img} />
-                        </li>
-                    ))}
-                </ul>
+                images.map((img) => (
+                    <ImageItem key={img.id} img={img} />
+                ))
             ) : (
                 <p>No images found.</p>
             )}
