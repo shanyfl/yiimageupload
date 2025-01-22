@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "outDir": "dist",
-    "rootDir": "src",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "strict": true,
-    "typeRoots": ["node_modules/@types"],
+    // ...other options as needed
   },
-  "include": ["src"]
+  "include": ["src/**/*", "__tests__/**/*"]
 }
-

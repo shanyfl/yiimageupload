@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="added support for sqlite db">
-      <change afterPath="$PROJECT_DIR$/backend/src/jest.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/tests/checkExpiredImagesRemoval.test.mts" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="add unit tests">
+      <change afterPath="$PROJECT_DIR$/backend/vite.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/jest.config.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/tests/checkExpiredImagesRemoval.test.mts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,8 @@
     "Node.js.Unnamed.executor": "Debug",
     "Node.js.server.ts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Vitest.checkAndRemoveExpiredImages.executor": "Debug",
+    "Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events.executor": "Debug",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/shany/Projects/homework/yimageuploader/frontend/src/components/ImageViewer",
     "node.js.detected.package.eslint": "true",
@@ -67,16 +71,51 @@
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\backend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\shany\Projects\homework\yimageuploader\backend" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageUpload" />
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events">
+    <configuration name="checkAndRemoveExpiredImages" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/backend/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts" />
+      <test-names>
+        <test-name value="checkAndRemoveExpiredImages" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events" type="JavaScriptTestRunnerVitest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <vitest-package value="$PROJECT_DIR$/backend/node_modules/vitest" />
+      <working-dir value="$PROJECT_DIR$/backend" />
+      <vitest-options value="--run" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts" />
+      <test-names>
+        <test-name value="checkAndRemoveExpiredImages" />
+        <test-name value="should remove expired images, delete files, and delete records from db, then emit events" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="server.ts" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="server.ts" typescript-loader="bundled" working-dir="$PROJECT_DIR$/backend/src">
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Node.js.server.ts" />
+      <item itemvalue="Vitest.checkAndRemoveExpiredImages" />
+      <item itemvalue="Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events" />
+        <item itemvalue="Vitest.checkAndRemoveExpiredImages" />
         <item itemvalue="Node.js.server.ts" />
       </list>
     </recent_temporary>
@@ -101,7 +140,7 @@
       <updated>1737441760176</updated>
       <workItem from="1737441761362" duration="2000000" />
       <workItem from="1737443866062" duration="8954000" />
-      <workItem from="1737456242473" duration="9352000" />
+      <workItem from="1737456242473" duration="17460000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -191,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737490510650</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add unit tests">
+      <option name="closed" value="true" />
+      <created>1737492079294</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737492079294</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +256,19 @@
     <MESSAGE value="add support for env files &amp; vite in config" />
     <MESSAGE value="update design and ui" />
     <MESSAGE value="added support for sqlite db" />
-    <option name="LAST_COMMIT_MESSAGE" value="added support for sqlite db" />
+    <MESSAGE value="add unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="add unit tests" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts</url>
+          <line>48</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

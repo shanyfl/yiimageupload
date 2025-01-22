@@ -1,17 +1,17 @@
 import express from 'express';
 import { Server as SocketIOServer } from 'socket.io';
 import multer from 'multer';
-import { nanoid } from 'nanoid';
+import {nanoid} from "nanoid";
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import http from 'http';
-import { initializeDb, ImageRecord } from './db';  // import DB setup
+import { initializeDb, ImageRecord } from './db.js';
 
 // Initialize out db... else where will it be ??
-let db: any;
+let database: any;
 (async () => {
-  db = await initializeDb();
+  database = await initializeDb();
 })();
 
 // Create the uploads dir if it doesn't exist already :)
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
   destination: (_req, _res, cb) => {
     cb(null, UPLOADS_DIR);
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     // store file with an id based on unique name + original extension
     const ext = path.extname(file.originalname);
     cb(null, `${Date.now()}-${nanoid()}${ext}`);
@@ -51,7 +51,7 @@ app.get('/api/v1/images', async (req: express.Request, res: express.Response) =>
   try {
     const now = Date.now();
     // Query non-expired images
-    const validImages: ImageRecord[] = await db.all(
+    const validImages: ImageRecord[] = await database.all(
         'SELECT * FROM images WHERE expirationTimestamp > ?',
         now
     );
@@ -93,7 +93,7 @@ app.post('/api/v1/images', upload.single('image'), async (req: express.Request, 
     };
 
     // Insert the image into the db
-    await db.run(
+    await database.run(
         `INSERT INTO images (id, filePath, expirationTimestamp) VALUES (?, ?, ?)`,
         record.id,
         record.filePath,
@@ -115,7 +115,7 @@ app.post('/api/v1/images', upload.single('image'), async (req: express.Request, 
 app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Response) => {
   try {
     const {imageID} = req.params;
-    const record: ImageRecord = await db.get(
+    const record: ImageRecord = await database.get(
         'SELECT * FROM images WHERE id = ?',
         imageID
     );
@@ -132,7 +132,7 @@ app.get('/api/v1/images/:imageID', async (req: express.Request, res: express.Res
       }
 
       // Remove record from SQLite
-      await db.run('DELETE FROM images WHERE id = ?', imageID);
+      await database.run('DELETE FROM images WHERE id = ?', imageID);
 
       return res.status(410).json({error: 'Image has expired'}); // or 404
     }
@@ -151,7 +151,7 @@ export const checkAndRemoveExpiredImages = async () => {
     const now = Date.now();
 
     // get all expired images
-    const expiredImages: ImageRecord[] = await db.all(
+    const expiredImages: ImageRecord[] = await database.all(
         'SELECT * FROM images WHERE expirationTimestamp < ?',
         now
     );
@@ -165,7 +165,7 @@ export const checkAndRemoveExpiredImages = async () => {
         });
       }
       // delete the image from db
-      await db.run('DELETE FROM images WHERE id = ?', img.id);
+      await database.run('DELETE FROM images WHERE id = ?', img.id);
       io.emit('imageRemoved', { id: img.id });
     }
   } catch (error) {
