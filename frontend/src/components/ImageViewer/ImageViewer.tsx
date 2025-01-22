@@ -46,7 +46,7 @@ const ImageViewer = () => {
         // Listen for image removal events
         socket.on('imageRemoved',handleImageRemoved);
 
-        // Cleanup on unmount
+        // close socket on unmount
         return () => {
             socket.off('imageRemoved', handleImageRemoved);
         };

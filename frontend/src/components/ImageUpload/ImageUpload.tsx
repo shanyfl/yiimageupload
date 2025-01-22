@@ -18,7 +18,6 @@ const ImageUpload = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const queryClient = useQueryClient();
 
-    // State to track if we are currently dragging something over the drop area
     const [isDragActive, setIsDragActive] = useState<boolean>(false);
 
     const expirationOptions = [
@@ -37,9 +36,6 @@ const ImageUpload = () => {
         { label: '6 months', value: '259200' },
     ];
 
-    /**
-     * Handle file changes from the file input
-     */
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             setFile(e.target.files[0]);
@@ -58,9 +54,6 @@ const ImageUpload = () => {
         setError(null);
     }
 
-    /**
-     * Handle drag-over event (fired continuously when you drag something over the drop zone)
-     */
     const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
@@ -70,27 +63,18 @@ const ImageUpload = () => {
         }
     };
 
-    /**
-     * Handle drag-enter event (fired when the dragged item enters the drop zone)
-     */
     const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragActive(true);
     };
 
-    /**
-     * Handle drag-leave event (fired when the dragged item leaves the drop zone)
-     */
     const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
         setIsDragActive(false);
     };
 
-    /**
-     * Handle drop event (when user drops the file)
-     */
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
@@ -110,9 +94,6 @@ const ImageUpload = () => {
         }
     };
 
-    /**
-     * Handle form submission to upload the image
-     */
     const handleUpload = async () => {
         setIsUploading(true);
         setError(null);
@@ -168,7 +149,6 @@ const ImageUpload = () => {
 
     return (
         <div className="image-upload">
-            {/* Drag-and-drop area */}
             <div
                 className={`drop-zone ${isDragActive ? 'drag-active' : ''}`}
                 onDragOver={handleDragOver}
@@ -185,8 +165,6 @@ const ImageUpload = () => {
                 )}
             </div>
 
-
-            {/* Traditional file input */}
             <div style={{ marginBottom: '1rem' }}>
                 <label>
                     <strong>Select image:</strong>
@@ -200,7 +178,6 @@ const ImageUpload = () => {
                 </label>
             </div>
 
-            {/* Expiration time input */}
             <div style={{marginBottom: '1rem'}}>
                 <label>
                     <strong>Expiration:</strong>
@@ -219,12 +196,10 @@ const ImageUpload = () => {
             </div>
 
 
-            {/* Upload button */}
             <button onClick={handleUpload} disabled={isUploading}>
                 {isUploading ? 'Uploading...' : 'Upload'}
             </button>
 
-            {/* Error message */}
             {error && (
                 <div style={{marginTop: '1rem', color: 'red'}}>
                     <strong>Error:</strong> {error}

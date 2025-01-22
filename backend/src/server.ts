@@ -6,7 +6,7 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import http from 'http';
-import { initializeDb, ImageRecord } from './db.js';
+import { initializeDb, ImageRecord } from './db';
 
 // Initialize out db... else where will it be ??
 let database: any;

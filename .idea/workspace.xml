@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="add unit tests">
-      <change afterPath="$PROJECT_DIR$/backend/vite.config.ts" afterDir="false" />
+    <list default="true" id="596c5cc2-4f1d-4723-8d20-43de3068703d" name="Changes" comment="update unit tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/db.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/jest.config.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/tests/checkExpiredImagesRemoval.test.mts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageUpload/ImageUpload.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ImageViewer/ImageViewer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +19,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;shanyssys&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/shanyfl/yiimageupload.git&quot;,
+    &quot;accountId&quot;: &quot;899e15ce-175e-417e-ac39-79599a594869&quot;
+  }
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="c9z3zoap" />
   </component>
@@ -42,27 +50,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Node.js.Unnamed.executor": "Debug",
-    "Node.js.server.ts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Vitest.checkAndRemoveExpiredImages.executor": "Debug",
-    "Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events.executor": "Debug",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/shany/Projects/homework/yimageuploader/frontend/src/components/ImageViewer",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.first.attach.projects": "true",
-    "ts.external.directory.path": "C:\\Users\\shany\\Projects\\homework\\yimageuploader\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Node.js.Unnamed.executor&quot;: &quot;Debug&quot;,
+    &quot;Node.js.server.ts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Vitest.checkAndRemoveExpiredImages.executor&quot;: &quot;Debug&quot;,
+    &quot;Vitest.checkAndRemoveExpiredImages.should remove expired images, delete files, and delete records from db, then emit events.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/shany/Projects/homework/yimageuploader/frontend/src/components/ImageViewer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\shany\\Projects\\homework\\yimageuploader\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\shany\Projects\homework\yimageuploader\frontend\src\components\ImageViewer" />
@@ -141,6 +149,7 @@
       <workItem from="1737441761362" duration="2000000" />
       <workItem from="1737443866062" duration="8954000" />
       <workItem from="1737456242473" duration="17460000" />
+      <workItem from="1737521825358" duration="1179000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -238,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737492079294</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update unit tests">
+      <option name="closed" value="true" />
+      <created>1737521890714</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737521890714</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +274,8 @@
     <MESSAGE value="update design and ui" />
     <MESSAGE value="added support for sqlite db" />
     <MESSAGE value="add unit tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="add unit tests" />
+    <MESSAGE value="update unit tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="update unit tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -265,7 +283,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/backend/__tests__/checkExpiredImagesRemoval.test.ts</url>
           <line>48</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
